@@ -28,6 +28,12 @@
 </configuration>
 ```
 
+Для просмотра логов через web-интерфейс выполните следующее:
+* перейдите по адресу `http://localhost:5601`
+* в меню перейдите по `Observability` -> `Logs` -> `Explorer`
+* нажмите кнопку `View all matches` (если логи не появились)
+* настройте `fields`, нужны `service.name` и `message` 
+
 ## Deploy
 Приложение разворачивается с помощью docker compose версии 2.24+.
   
