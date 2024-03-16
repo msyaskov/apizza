@@ -1,6 +1,33 @@
 # Apizza
 Приложение по заказу пицц.
 
+## Логирование в ELK
+Для того чтобы подключить логи вашего сервиса к ELK, выполните следующие действия:
+* добавьте зависимость `net.logstash.logback:logstash-logback-encoder:7.4`
+* добавьте в `application.properties` свойство `logstash.host=localhost:5030`
+* добавьте в `application.properties` свойство `spring.application.name`
+* добавьте в `resources` файл `logback-spring.xml` со следующим содержимым:
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
+
+    <springProperty scope="context" name="service.name" source="spring.application.name" />
+    <springProperty scope="context" name="logstash.host" source="logstash.host" />
+
+    <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+        <destination>${logstash.host}</destination>
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder"/>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="LOGSTASH" />
+    </root>
+</configuration>
+```
+
 ## Deploy
 Приложение разворачивается с помощью docker compose версии 2.24+.
   
