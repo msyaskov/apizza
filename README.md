@@ -1,7 +1,26 @@
 # Apizza
 Приложение по заказу пицц.
 
-## Логирование в ELK
+## Содержание
+* [Database schemas](#Database-schemas)
+* [ELK logging](#ELK-logging)
+* [Docker](#Docker)
+
+## Database schemas
+Чтобы не разворачивать множество баз данных, сервисы приложения используют одну базу данных.
+Для соответствия паттерну Database-per-Service, каждый сервис использует только свою схему.  
+Для установки схемы по умолчанию добавьте в `application.yml` следующие свойства:
+```yml
+spring:
+  jpa:
+    properties:
+      hibernate:
+        default_schema: ваше_название_схемы
+  flyway: # только если используете flyway для миграций базы данных
+    default-schema: ${spring.jpa.properties.hibernate.default_schema}
+```
+
+## ELK logging
 Для того чтобы подключить логи вашего сервиса к ELK, выполните следующие действия:
 * добавьте зависимость `net.logstash.logback:logstash-logback-encoder:7.4`
 * добавьте в `application.properties` свойство `logstash.host=localhost:5030`
@@ -34,7 +53,7 @@
 * нажмите кнопку `View all matches` (если логи не появились)
 * настройте `fields`, нужны `service.name` и `message` 
 
-## Deploy
+## Docker
 Приложение разворачивается с помощью docker compose версии 2.24+.
   
 Файл конфигурации находится по пути [docker/docker-compose.yml](./docker/docker-compose.yml).  
@@ -50,3 +69,8 @@ URL: `jdbc:postgresql://localhost:5432/apizza_db`
 * [kafka](./docker/kafka.env):  
 URL для других контейнеров: `kafka:9092`  
 URL для внешних приложений: `localhost:29092`
+
+
+* [elk](./docker/elk.env)  
+Порт UI Kibana: 5601  
+Порт input Logstash: 5030
