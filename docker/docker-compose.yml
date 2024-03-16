@@ -1,0 +1,21 @@
+version: '4.28'
+services:
+  postgres:
+    image: postgres:16.2
+    ports:
+      - ${POSTGRES_HOST_PORT:-5432}:5432
+    volumes:
+      - ${POSTGRES_VOLUME}:/var/lib/postgresql/data
+    env_file: ./postgres.env
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.4.4
+    env_file: ./zookeeper.env
+    ports:
+      - ${ZOOKEEPER_HOST_PORT:-2181}:2181
+  kafka:
+    image: confluentinc/cp-kafka:7.4.4
+    depends_on:
+      - zookeeper
+    ports:
+      - ${KAFKA_HOST_PORT:-29092}:29092
+    env_file: ./kafka.env
