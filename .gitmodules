@@ -1,3 +1,9 @@
 [submodule "order-service"]
 	path = order-service
 	url = git@github.com:msyaskov/apizza-order.git
+[submodule "notification-service"]
+	path = notification-service
+	url = git@github.com:Sergeevi4ivan/APizza-notificationService.git
+[submodule "api-gateway"]
+	path = api-gateway
+	url = git@github.com:Sergeevi4ivan/APizza-gateWay.git
