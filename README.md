@@ -2,9 +2,22 @@
 Приложение по заказу пицц.
 
 ## Содержание
+* [Eureka](#Eureka)
 * [Database schemas](#Database-schemas)
 * [ELK logging](#ELK-logging)
 * [Docker](#Docker)
+
+## Eureka
+Чтобы подключить ваш сервис к eureka server добавьте в `application.yml`
+```yaml
+eureka:
+  client:
+    service-url:
+      default-zone: 'http://localhost:8761/eureka'
+spring:
+  application:
+    name: your-service-name
+```
 
 ## Database schemas
 Чтобы не разворачивать множество баз данных, сервисы приложения используют одну базу данных.

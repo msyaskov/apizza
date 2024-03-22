@@ -7,3 +7,6 @@
 [submodule "api-gateway"]
 	path = api-gateway
 	url = git@github.com:Sergeevi4ivan/APizza-gateWay.git
+[submodule "eureka-service"]
+	path = eureka-service
+	url = git@github.com:msyaskov/apizza-eureka.git
