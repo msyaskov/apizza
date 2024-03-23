@@ -10,3 +10,6 @@
 [submodule "eureka-service"]
 	path = eureka-service
 	url = git@github.com:msyaskov/apizza-eureka.git
+[submodule "auth-service"]
+	path = auth-service
+	url = https://github.com/devulyaper/AuthorizationServer
